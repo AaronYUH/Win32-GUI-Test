@@ -5,7 +5,9 @@
 LRESULT CALLBACK xdProcedure(HWND, UINT, WPARAM, LPARAM);
 
 // menus
-void AddMenus();
+void AddMenus(HWND);
+
+HMENU hMenu;
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE prevInst, LPSTR args, int ncmdshow) {
     
@@ -38,6 +40,22 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE prevInst, LPSTR args, int ncmdshow
 LRESULT CALLBACK xdProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
 
     switch (msg) {
+        case WM_COMMAND:
+
+            switch (wp) {
+                case 0:
+                    MessageBeep(MB_OK);
+                    break;
+                case 1:
+                    MessageBox(NULL, "Message", "Hi", MB_OK);
+                    MessageBeep(MB_YESNO);
+                    break;
+            }
+         
+            break;
+        case WM_CREATE:
+            AddMenus(hWnd);
+            break;
         case WM_DESTROY:
             PostQuitMessage(0);
             break;
@@ -48,6 +66,19 @@ LRESULT CALLBACK xdProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
 
 }
 
-void AddMenus() {
-    
+void AddMenus(HWND hWnd) {
+
+    hMenu = CreateMenu();
+    HMENU hPrefMenu = CreateMenu();
+
+    AppendMenu(hMenu, MF_STRING, 0, "File");
+    AppendMenu(hMenu, MF_POPUP, (UINT_PTR) hPrefMenu, "Preferences");
+
+    // preference menu
+    {
+        AppendMenu(hPrefMenu, MF_STRING, 1, "Settings");
+    }
+
+    SetMenu(hWnd, hMenu);
+
 }
