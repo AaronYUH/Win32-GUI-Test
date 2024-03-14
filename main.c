@@ -70,7 +70,6 @@ void AddMenus(HWND hWnd) {
 
     hMenu = CreateMenu();
     HMENU hPrefMenu = CreateMenu();
-
     AppendMenu(hMenu, MF_STRING, 0, "File");
     AppendMenu(hMenu, MF_POPUP, (UINT_PTR) hPrefMenu, "Preferences");
 
