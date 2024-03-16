@@ -47,7 +47,7 @@ LRESULT CALLBACK xdProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
                     MessageBeep(MB_OK);
                     break;
                 case 1:
-                    MessageBox(NULL, "Message", "Hi", MB_OK);
+                    MessageBox(NULL, "Not yet implemented", "Err", MB_OK);
                     MessageBeep(MB_YESNO);
                     break;
             }
@@ -76,6 +76,7 @@ void AddMenus(HWND hWnd) {
     // preference menu
     {
         AppendMenu(hPrefMenu, MF_STRING, 1, "Settings");
+        AppendMenu(hPrefMenu, MF_STRING, 1, "Theme");
     }
 
     SetMenu(hWnd, hMenu);
