@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <windows.h>
 
+#define WINDOW_W 500
+#define WINDOW_H 500
+
 // window procedure
 LRESULT CALLBACK xdProcedure(HWND, UINT, WPARAM, LPARAM);
 
 // menus
 void AddMenus(HWND);
+
+// controls
+void AddControls(HWND);
 
 HMENU hMenu;
 
@@ -23,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE prevInst, LPSTR args, int ncmdshow
     if (!(RegisterClassW(&xd)))
         return -1;
 
-    CreateWindowW(L"deltaProject", L"Delta", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 0, 0, 500, 500, NULL, NULL, NULL, NULL);
+    CreateWindowW(L"deltaProject", L"Delta", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 0, 0, WINDOW_W, WINDOW_H, NULL, NULL, NULL, NULL);
 
     // struct
     MSG msg = {0};
@@ -55,6 +61,7 @@ LRESULT CALLBACK xdProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
             break;
         case WM_CREATE:
             AddMenus(hWnd);
+            AddControls(hWnd);
             break;
         case WM_DESTROY:
             PostQuitMessage(0);
@@ -81,4 +88,8 @@ void AddMenus(HWND hWnd) {
 
     SetMenu(hWnd, hMenu);
 
+}
+
+void AddControls(HWND hWnd) {
+    CreateWindowW(L"Edit", L"Hallelujah", WS_VISIBLE | WS_CHILD | ES_AUTOVSCROLL | ES_MULTILINE, 0, 0, WINDOW_W, WINDOW_H, hWnd, NULL, NULL, NULL);
 }
